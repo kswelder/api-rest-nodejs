@@ -25,7 +25,17 @@ route.post('/user',async (req, res) => {
     res.json({username,password})
 })
 
-route.put('/user', (req, res) => {})
+route.put('/user',async (req, res) => {
+    const { username,password } = req.body
+
+    await database.update({username,password}).where({username}).table('user').then(data => {
+        console.log('Updated sucessfull')
+    }).catch(err => {
+        console.log(err)
+    })
+
+    res.json({message:'OK'})
+})
 
 route.delete('/user', (req, res) => {})
 
