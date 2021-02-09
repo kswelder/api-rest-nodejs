@@ -41,6 +41,16 @@ route.put('/user',async (req, res) => {
     res.json({message:'OK'})
 })
 
-route.delete('/user', (req, res) => {})
+route.delete('/user',async (req, res) => {
+    const { username } = req.body
+
+    await database.where({username}).del().table('user').then(data => {
+        console.log('Delete sucessfull')
+    }).catch(err => {
+        console.log(err)
+    })
+
+    res.json({message:'OK'})
+})
 
 module.exports = route
