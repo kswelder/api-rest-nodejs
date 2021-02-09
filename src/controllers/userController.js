@@ -26,9 +26,13 @@ route.post('/user',async (req, res) => {
 })
 
 route.put('/user',async (req, res) => {
-    const { username,password } = req.body
+    const { username,newUsername,password } = req.body
 
-    await database.update({username,password}).where({username}).table('user').then(data => {
+    if(! newUsername) {
+        newUsername = username
+    }
+
+    await database.update({username,password}).where({newUsername}).table('user').then(data => {
         console.log('Updated sucessfull')
     }).catch(err => {
         console.log(err)
