@@ -15,10 +15,10 @@ route.get('/user',async (req, res) => {
     res.json({message: response})
 })
 
-route.post('/user', (req, res) => {
+route.post('/user',async (req, res) => {
     const {username,password} = req.body
 
-    database('user').insert({username,password}).then().catch( err => {
+    await database('user').insert({username,password}).then().catch( err => {
         console.log(err)
     })
 
