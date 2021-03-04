@@ -6,7 +6,7 @@ route.get('/user',async (req, res) => {
 
     let response = ""
 
-    await database.select(["username","password"]).where({username}).table('user').then(data => {
+    await database.select(["username","password","email"]).where({username}).table('user').then(data => {
         response = data[0]
     }).catch(err => {
         console.log(err)
@@ -16,13 +16,13 @@ route.get('/user',async (req, res) => {
 })
 
 route.post('/user',async (req, res) => {
-    const {username,password} = req.body
+    const {username,password,email} = req.body
 
-    await database('user').insert({username,password}).then().catch( err => {
+    await database('user').insert({username,password,email}).then().catch( err => {
         console.log(err)
     })
 
-    res.json({username,password})
+    res.json({username,password,email})
 })
 
 route.put('/user',async (req, res) => {
